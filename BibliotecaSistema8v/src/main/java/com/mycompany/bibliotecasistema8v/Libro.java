@@ -81,26 +81,4 @@ public class Libro {
 	public String toString() {
 		return "\n°Libro: " + titulo + " - " + autor + "\n°ISBN: " + ISBN + "\n°Año: "+ anio + "\n°Ejemplares: "+ cantidad;
 	}
-	
-	//Métodos
-	public boolean prestar() {
-		if(cantidad > prestados) {
-			prestados++;
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean devolver() {
-		if(prestados > 0) {
-			prestados--;
-			return true;
-		}	
-		return false;
-	}
-	
-	public int disponibilidad() {
-		return cantidad-prestados;
-	}
-    
 }

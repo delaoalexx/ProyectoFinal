@@ -179,7 +179,7 @@ public class LibroDAO {
     }
   
     // agregar un autor al combobox, also es necesario hacerlo antes de agregar un libro
-    public boolean agregarAutor(Autor autor) {
+    public boolean agregarlibro(Autor autor) {
     String query = "INSERT INTO autores (nombre, edad, nacionalidad) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, autor.getNombre());
@@ -194,29 +194,6 @@ public class LibroDAO {
     }
     
     // agregar un libro a la BBDD
-     public boolean agregarLibro(Libro libro) {
-        String queryLibro = "INSERT INTO libros (ISBN, titulo, autor_id, año) VALUES (?, ?, ?, ?)";
-        String queryEjemplares = "INSERT INTO cantidadEjemplares (id_libro, cantidad) VALUES (?, ?)";
-        try (PreparedStatement statementLibro = connection.prepareStatement(queryLibro);
-             PreparedStatement statementEjemplares = connection.prepareStatement(queryEjemplares)) {
-            
-            // Insertar libro
-            statementLibro.setString(1, libro.getISBN());
-            statementLibro.setString(2, libro.getTitulo());
-            statementLibro.setInt(3, libro.getAutor().getIDAutor());
-            statementLibro.setInt(4, Integer.parseInt(libro.getAnio()));
-            statementLibro.executeUpdate();
-
-            // Insertar cantidad de ejemplares
-            statementEjemplares.setString(1, libro.getISBN());
-            statementEjemplares.setInt(2, libro.getCantidad());
-            statementEjemplares.executeUpdate();
-
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+     
       
 }
