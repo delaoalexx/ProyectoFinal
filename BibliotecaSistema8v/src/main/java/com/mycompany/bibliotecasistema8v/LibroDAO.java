@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 public class LibroDAO {
     Connection connection = BibliotecaSistema8v.getConnection();
     
-    // tabla de VerLibross
     public DefaultTableModel getLibrosTableModel() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ISBN");
@@ -64,7 +63,6 @@ public class LibroDAO {
         return model;
     }
     
-    // Hacer un prestamo de un libro
     public boolean pedirLibro(String isbn) {
         String querySelect = "SELECT cantidad FROM cantidadEjemplares WHERE id_libro = ?";
         String queryUpdate = "UPDATE cantidadEjemplares SET cantidad = cantidad - 1 WHERE id_libro = ?";
@@ -103,7 +101,6 @@ public class LibroDAO {
         return false;
     }
     
-    // Hacer la devolucion de un libro
     public boolean devolverLibro(String isbn) {
     String querySelect = "SELECT * FROM prestamosLibros WHERE id_libro = ?";
     String queryDelete = "DELETE FROM prestamosLibros WHERE id_libro = ? LIMIT 1";
@@ -136,7 +133,6 @@ public class LibroDAO {
     return false;
     }
     
-    // Eliminar un libro de la bbdd
     public boolean eliminarLibro(String isbn) {
     String querySelect = "SELECT * FROM libros WHERE ISBN = ?";
     String queryDeletePrestamos = "DELETE FROM prestamosLibros WHERE id_libro = ?";
@@ -178,22 +174,88 @@ public class LibroDAO {
     return false;
     }
   
-    // agregar un autor al combobox, also es necesario hacerlo antes de agregar un libro
-    public boolean agregarlibro(Autor autor) {
-    String query = "INSERT INTO autores (nombre, edad, nacionalidad) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, autor.getNombre());
-            statement.setInt(2, autor.getEdad());
-            statement.setString(3, autor.getNacionalidad());
-            statement.executeUpdate();
+    // agregar un libro a la bbdd
+    public boolean agregarLibro(String isbn, String titulo, String autorNombre, int autorEdad, String autorNacionalidad, int anio, int cantidadEjemplares) {
+        // Consultas SQL
+        String querySelectAutor = "SELECT id FROM autores WHERE nombre = ? AND edad = ? AND nacionalidad = ?";
+        String queryInsertAutor = "INSERT INTO autores (nombre, edad, nacionalidad) VALUES (?, ?, ?)";
+        String queryInsertLibro = "INSERT INTO libros (ISBN, titulo, autor_id, año) VALUES (?, ?, ?, ?)";
+        String queryInsertCantidad = "INSERT INTO cantidadEjemplares (id_libro, cantidad) VALUES (?, ?)";
+
+        try {
+            // Verificar si el autor ya existe
+            PreparedStatement preparedStatementSelectAutor = connection.prepareStatement(querySelectAutor);
+            preparedStatementSelectAutor.setString(1, autorNombre);
+            preparedStatementSelectAutor.setInt(2, autorEdad);
+            preparedStatementSelectAutor.setString(3, autorNacionalidad);
+            ResultSet resultSet = preparedStatementSelectAutor.executeQuery();
+
+            int autorId;
+            if (resultSet.next()) {
+                autorId = resultSet.getInt("id");  // Autor ya existe
+            } else {
+                // Insertar nuevo autor
+                PreparedStatement preparedStatementInsertAutor = connection.prepareStatement(queryInsertAutor, Statement.RETURN_GENERATED_KEYS);
+                preparedStatementInsertAutor.setString(1, autorNombre);
+                preparedStatementInsertAutor.setInt(2, autorEdad);
+                preparedStatementInsertAutor.setString(3, autorNacionalidad);
+                preparedStatementInsertAutor.executeUpdate();
+
+                ResultSet generatedKeys = preparedStatementInsertAutor.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    autorId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Fallo al obtener el ID del autor insertado.");
+                }
+            }
+
+            // Insertar el libro
+            PreparedStatement preparedStatementInsertLibro = connection.prepareStatement(queryInsertLibro);
+            preparedStatementInsertLibro.setString(1, isbn);
+            preparedStatementInsertLibro.setString(2, titulo);
+            preparedStatementInsertLibro.setInt(3, autorId);
+            preparedStatementInsertLibro.setInt(4, anio);
+            preparedStatementInsertLibro.executeUpdate();
+
+            // Insertar la cantidad de ejemplares
+            PreparedStatement preparedStatementInsertCantidad = connection.prepareStatement(queryInsertCantidad);
+            preparedStatementInsertCantidad.setString(1, isbn);
+            preparedStatementInsertCantidad.setInt(2, cantidadEjemplares);
+            preparedStatementInsertCantidad.executeUpdate();
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
     
-    // agregar un libro a la BBDD
-     
+    public boolean donarEjemplar(String isbn) {
+        String querySelect = "SELECT cantidad FROM cantidadEjemplares WHERE id_libro = ?";
+        String queryUpdate = "UPDATE cantidadEjemplares SET cantidad = cantidad + 1 WHERE id_libro = ?";
+
+        try (
+            PreparedStatement preparedStatementSelect = connection.prepareStatement(querySelect)) {
+
+            preparedStatementSelect.setString(1, isbn);
+            ResultSet resultSet = preparedStatementSelect.executeQuery();
+
+            if (resultSet.next()) {
+                // Incrementar la cantidad de ejemplares disponibles
+                try (PreparedStatement preparedStatementUpdate = connection.prepareStatement(queryUpdate)) {
+                    preparedStatementUpdate.setString(1, isbn);
+                    preparedStatementUpdate.executeUpdate();
+                    return true; // Donación exitosa
+                }
+            } else {
+                System.out.println("El libro con ISBN " + isbn + " no existe en la base de datos.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
       
 }

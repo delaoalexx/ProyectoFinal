@@ -99,6 +99,7 @@ public class AgregarLibro extends javax.swing.JFrame {
             }
         });
 
+        nameField.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         nameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameFieldActionPerformed(evt);
@@ -149,12 +150,14 @@ public class AgregarLibro extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("EDAD");
 
+        nameField3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         nameField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameField3ActionPerformed(evt);
             }
         });
 
+        nameField4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         nameField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameField4ActionPerformed(evt);
@@ -185,9 +188,7 @@ public class AgregarLibro extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel7))
                                 .addGap(28, 28, 28)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nEjemplaresField, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nameField1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(nEjemplaresField, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel9)
@@ -204,7 +205,8 @@ public class AgregarLibro extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameField1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(243, 243, 243))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,9 +232,9 @@ public class AgregarLibro extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(nameField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -305,7 +307,40 @@ public class AgregarLibro extends javax.swing.JFrame {
     }//GEN-LAST:event_ISBNFieldActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
+       String isbn = ISBNField.getText();
+        String titulo = nameField1.getText();
+        String autorNombre = nameField4.getText();
+        String autorEdadStr = nameField3.getText();
+        String autorNacionalidad = nameField.getText();
+        String anioStr = anioField.getText();
+        String cantidadEjemplaresStr = nEjemplaresField.getText();  // Asumiendo que nEjemplaresField devuelve un int directamente
+
+        // Convertir los campos de texto a enteros
+        int autorEdad = 0;
+        int anio = 0;
+        int cantidadEjemplares = 0;
+
+        try {
+            autorEdad = Integer.parseInt(autorEdadStr);
+            anio = Integer.parseInt(anioStr);
+            cantidadEjemplares = Integer.parseInt(cantidadEjemplaresStr);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Por favor, ingrese números válidos para la edad del autor, el año y la cantidad de ejemplares.");
+            return;  // Salir del método si hay un error en la conversión
+        }
+
+        LibroDAO libroDAO = new LibroDAO();
+        boolean exito = libroDAO.agregarLibro(isbn, titulo, autorNombre, autorEdad, autorNacionalidad, anio, cantidadEjemplares);
+
+        if (exito) {            
+            ActionOk aOk = new ActionOk();
+            aOk.setVisible(true);
+            this.dispose();
+        } else {
+            Error error = new Error();
+            error.setVisible(true);
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
