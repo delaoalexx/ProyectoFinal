@@ -11,7 +11,7 @@ import java.sql.*;
  */
 public class LogInFrame extends javax.swing.JFrame {
     
-    Usuario u = new Usuario(01, "alele", "mapache123");
+    Usuario u = new Usuario(01, "ale", "mapache123");
     public String user = u.getNombreUser(), password = u.getContrasenia();
     Error error = new Error();
     ActionOk aOk = new ActionOk();
@@ -38,6 +38,8 @@ public class LogInFrame extends javax.swing.JFrame {
         PassLabel = new javax.swing.JLabel();
         jPasswordField = new javax.swing.JPasswordField();
         ingresarButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -47,7 +49,7 @@ public class LogInFrame extends javax.swing.JFrame {
 
         panelLogIn.setBackground(new java.awt.Color(132, 124, 184));
 
-        iniciarSesionText.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        iniciarSesionText.setFont(new java.awt.Font("Yu Gothic UI", 1, 33)); // NOI18N
         iniciarSesionText.setForeground(new java.awt.Color(31, 25, 37));
         iniciarSesionText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iniciarSesionText.setText("Iniciar sesión");
@@ -81,16 +83,17 @@ public class LogInFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/systemPics/profilePicMapache.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout panelLogInLayout = new javax.swing.GroupLayout(panelLogIn);
         panelLogIn.setLayout(panelLogInLayout);
         panelLogInLayout.setHorizontalGroup(
             panelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLogInLayout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(iniciarSesionText, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLogInLayout.createSequentialGroup()
-                .addContainerGap(197, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLogInLayout.createSequentialGroup()
                         .addGroup(panelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -102,13 +105,28 @@ public class LogInFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLogInLayout.createSequentialGroup()
                         .addComponent(ingresarButton)
                         .addGap(216, 216, 216))))
+            .addGroup(panelLogInLayout.createSequentialGroup()
+                .addGroup(panelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLogInLayout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLogInLayout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addGroup(panelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(iniciarSesionText, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         panelLogInLayout.setVerticalGroup(
             panelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLogInLayout.createSequentialGroup()
-                .addContainerGap(197, Short.MAX_VALUE)
+            .addGroup(panelLogInLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(iniciarSesionText)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(userLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,6 +224,7 @@ public class LogInFrame extends javax.swing.JFrame {
                 LogInFrame frame = new LogInFrame();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
+                frame.setTitle("Biblioteca infantil 'El mapache feliz´");
                 System.out.println(".run()");
             }
         });
@@ -215,6 +234,8 @@ public class LogInFrame extends javax.swing.JFrame {
     private javax.swing.JLabel PassLabel;
     private javax.swing.JButton ingresarButton;
     private javax.swing.JLabel iniciarSesionText;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;

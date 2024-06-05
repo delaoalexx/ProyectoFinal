@@ -15,6 +15,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     public PrincipalFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Biblioteca infantil 'El mapache feliz´");
     }
 
     /**
@@ -26,7 +27,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         VerLibroButton = new javax.swing.JButton();
@@ -45,8 +45,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
-        jTextField1.setText("jTextField1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(132, 124, 184));
@@ -58,6 +56,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         VerLibroButton.setBackground(new java.awt.Color(210, 185, 224));
         VerLibroButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        VerLibroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/systemPics/libross.png"))); // NOI18N
         VerLibroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerLibroButtonActionPerformed(evt);
@@ -72,6 +71,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         PedriLibroButton.setBackground(new java.awt.Color(210, 185, 224));
         PedriLibroButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        PedriLibroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/systemPics/libroMM.png"))); // NOI18N
         PedriLibroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PedriLibroButtonActionPerformed(evt);
@@ -80,6 +80,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         DevolverLibroButton.setBackground(new java.awt.Color(210, 185, 224));
         DevolverLibroButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        DevolverLibroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/systemPics/andLibro.png"))); // NOI18N
         DevolverLibroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DevolverLibroButtonActionPerformed(evt);
@@ -91,6 +92,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         DonarLibroButton.setBackground(new java.awt.Color(210, 185, 224));
         DonarLibroButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        DonarLibroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/systemPics/librosMAS.png"))); // NOI18N
         DonarLibroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DonarLibroButtonActionPerformed(evt);
@@ -102,6 +104,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         EliminarLibroButton.setBackground(new java.awt.Color(210, 185, 224));
         EliminarLibroButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        EliminarLibroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/systemPics/librosNOT.png"))); // NOI18N
         EliminarLibroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EliminarLibroButtonActionPerformed(evt);
@@ -113,6 +116,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         DonarEjemplarButton.setBackground(new java.awt.Color(210, 185, 224));
         DonarEjemplarButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        DonarEjemplarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/systemPics/donarfLirhsbfsfbz.png"))); // NOI18N
         DonarEjemplarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DonarEjemplarButtonActionPerformed(evt);
@@ -312,6 +316,5 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
